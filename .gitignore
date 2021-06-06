@@ -4,6 +4,8 @@
 **/*.mp4
 *.mpg
 *.mv
+*.bz2
+**/*.bz2
 
 # NPM modules
 node_modules
