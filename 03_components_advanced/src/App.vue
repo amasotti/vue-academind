@@ -20,7 +20,7 @@
         register the components locally in the parent component</p>
         </li>
       </ul>
-    </div><!--          d="m 13.096319,260.33771 c 8,-58.75319 64.854343,-6 25,-9 120,-2.24791"-->
+    </div>
     <div id="bikeleasing"><svg viewBox="-108 170 350 400">
       <path
           style="stroke-width:1.1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:.1;fill:transparent;stroke: transparent"
@@ -91,7 +91,8 @@ body {
 
 #bikeleasing {
   font-family: "Computer Modern", monospace;
-  font-size: 15px;
+  font-size: 16px;
+  width: 70%;
   position: absolute;
 }
 </style>

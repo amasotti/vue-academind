@@ -12,10 +12,10 @@
   </section>
 </template>
 
-<style>
+<style scoped>
 section h2 {
   margin: 0.5rem 0;
-  color: #3a3a3a;
+  color: #db0d0d;
 }
 ul {
   list-style: none;

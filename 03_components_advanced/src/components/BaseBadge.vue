@@ -22,16 +22,16 @@ export default {
   padding: 0.5rem 1rem;
   border-radius: 30px;
   background-color: #ccc;
-  color: #2e2e2e;
+  color: #0fbfdc;
 }
 
 .badge--admin {
-  background-color: #810036;
+  background-color: #0ea16d;
   color: white;
 }
 
 .badge--author {
-  background-color: #002c8a;
+  background-color: #1256e8;
   color: white;
 }
 </style>
