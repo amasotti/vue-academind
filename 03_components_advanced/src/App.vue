@@ -14,6 +14,16 @@
           :roles="user.role"
       ></user-info>
     </base-card>
+    <hr>
+    <base-card>
+      <user-goal>
+        <h2>A goal:</h2>
+        <template #goalItem="item">
+          <h3>{{ item.goal }}</h3>
+        </template>
+      </user-goal>
+    </base-card>
+    <hr>
   </div>
   <div class="container-fluid">
     <h2>Notes</h2>
@@ -85,12 +95,14 @@
 import TheHeader from './components/TheHeader.vue';
 import BadgeList from './components/BadgeList.vue';
 import UserInfo from './components/UserInfo.vue';
+import Goal from './components/Scoped.vue';
 
 export default {
   components: {
     "the-header": TheHeader,
     'badge-list': BadgeList,
     'user-info': UserInfo,
+    'user-goal': Goal
   },
   data() {
     return {
