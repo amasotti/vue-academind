@@ -1,4 +1,9 @@
 <template>
+  <modal-message @exit="reload" @continue="toggleModal" v-if="showDialog">
+    <template #default>
+      You are about to hide the notes, want to proceed?
+    </template>
+  </modal-message>
   <div>
     <the-header></the-header>
     <base-card>
@@ -23,13 +28,14 @@
 
     <base-card v-if="showGoals">
       <hr>
+      <keep-alive>
       <component :is="activeComponent">
         <h2>A goal:</h2>
         <template #goalItem="item">
           <h3>{{ item['goal'] }}</h3>
         </template>
-
       </component>
+      </keep-alive>
       <hr>
     </base-card>
 
@@ -52,28 +58,28 @@
           <p>Slots are to HTML what props are to data: a functionality in Vue to inject - possibly complex - HTML code inside custom Vue-HTML tags for components.
           In this example the content is injected inside a base-card component that takes care of the styling.
           </p>
-          <p>We can also have multiple slots for one and the same component but then we have to name them with the <code>name</code> attribute:
+          <p>We can also have multiple slots for one and the same component but then we have to name them with the <code>name</code> attribute:</p>
 
             <pre>
             &lt;slot name="whatever"&gt;
               &lt;h3&gt;Default&lt;/h3&gt;
             &lt;/slot&gt;
           </pre>
+          <p>
+            Notice also in the example before that we can have code inside the slot that will be rendered only and only if no other HTML is provided when the slot is used.</p>
 
-          Notice also in the example before that we can have code inside the slot that will be rendered only and only if no other HTML is provided when the slot is used.
-          </p>
+
           <p>
             Using slots also activates a special keyword: <samp>this.$slots</samp> that can be used to console-log informations about the slots or to check the presence of content
             in a slot and improve performance.
             Even empty slots are mounted and rendered and just hang empty in the DOM possibly causing problems. So it's a good (pro) practice to check the presence of content if it
-            could be the case that the slots remains empty:
+            could be the case that the slots remains empty:</p>
 
             <pre>
             &lt;slot name="xy" v-if="$slots.xy"&gt;
           </pre>
-
-          If no content is provided, this will eval to <code>undefined</code> and thus <code>false</code> and will not be rendered.
-          </p>
+          <p>
+          If no content is provided, this will eval to <code>undefined</code> and thus <code>false</code> and will not be rendered.</p>
           <p>Last but not list, remember the shorthands:</p>
           <ul>
             <li><b>:key</b> : v-bind:key</li>
@@ -106,19 +112,23 @@ import TheHeader from './components/TheHeader.vue';
 import BadgeList from './components/BadgeList.vue';
 import UserInfo from './components/UserInfo.vue';
 import Goal from './components/Scoped.vue';
+import MyModal from './components/MyModal.vue';
+
 
 export default {
   components: {
     "the-header": TheHeader,
     'badge-list': BadgeList,
     'user-info': UserInfo,
-    'user-goal': Goal
+    'user-goal': Goal,
+    'modal-message': MyModal
   },
   data() {
     return {
       showGoals : false,
       showNotes : true,
       activeComponent : null,
+      showDialog : false,
       activeUser: [
         {
           id: 1,
@@ -142,8 +152,20 @@ export default {
       this.activeComponent='user-goal';
     },
     toggleNotes() {
+      if (this.showNotes) {
+        this.showDialog = true;
+        console.log(this.showDialog)
+      }
       this.showNotes = !this.showNotes;
     },
+    toggleModal() {
+      this.showNotes = false;
+      this.showDialog = false;
+    },
+    reload() {
+      this.showDialog = false;
+      this.showNotes = true;
+    }
   }
 };
 </script>
