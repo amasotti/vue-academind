@@ -1,37 +1,81 @@
 <template>
   <div>
     <the-header></the-header>
-    <badge-list></badge-list>
-    <user-info
-        v-for="user in activeUser"
-        :key="user.id"
-        :id="user.id"
-      :full-name="user.name"
-      :info-text="user.description"
-      :roles="user.role"
-    ></user-info>
+    <base-card>
+      <badge-list></badge-list>
+    </base-card>
+    <base-card>
+      <user-info
+          v-for="user in activeUser"
+          :id="user.id"
+          :key="user.id"
+          :full-name="user.name"
+          :info-text="user.description"
+          :roles="user.role"
+      ></user-info>
+    </base-card>
   </div>
   <div class="container-fluid">
     <h2>Notes</h2>
     <div class="notes">
       <ul>
         <li><span class="commit">Global vs. local components</span>
-        <p>Up to now we always registered the components in the <code>main.js</code> file. This is <em>per se</em>
-        not a problem but could influence performance if we have dozens of components in our app, since everything declared
-        in main.js is going to be preloaded when the app is created. <br> A more advance way to register components is to divide those who should be
-        globally available (and thus registered in main.js) from those that are needed just in some subparts of the app. In that case we can
-        register the components locally in the parent component</p>
+          <p>Up to now we always registered the components in the <code>main.js</code> file. This is <em>per se</em>
+            not a problem but could influence performance if we have dozens of components in our app, since everything
+            declared
+            in main.js is going to be preloaded when the app is created. <br> A more advance way to register components
+            is to divide those who should be
+            globally available (and thus registered in main.js) from those that are needed just in some subparts of the
+            app. In that case we can
+            register the components locally in the parent component</p>
+        </li>
+        <li><span class="commit">Slots</span>
+          <p>Slots are to HTML what props are to data: a functionality in Vue to inject - possibly complex - HTML code inside custom Vue-HTML tags for components.
+          In this example the content is injected inside a base-card component that takes care of the styling.
+          </p>
+          <p>We can also have multiple slots for one and the same component but then we have to name them with the <code>name</code> attribute:
+
+            <pre>
+            &lt;slot name="whatever"&gt;
+              &lt;h3&gt;Default&lt;/h3&gt;
+            &lt;/slot&gt;
+          </pre>
+
+          Notice also in the example before that we can have code inside the slot that will be rendered only and only if no other HTML is provided when the slot is used.
+          </p>
+          <p>
+            Using slots also activates a special keyword: <samp>this.$slots</samp> that can be used to console-log informations about the slots or to check the presence of content
+            in a slot and improve performance.
+            Even empty slots are mounted and rendered and just hang empty in the DOM possibly causing problems. So it's a good (pro) practice to check the presence of content if it
+            could be the case that the slots remains empty:
+
+            <pre>
+            &lt;slot name="xy" v-if="$slots.xy"&gt;
+          </pre>
+
+          If no content is provided, this will eval to <code>undefined</code> and thus <code>false</code> and will not be rendered.
+          </p>
+          <p>Last but not list, remember the shorthands:</p>
+          <ul>
+            <li><b>:key</b> : v-bind:key</li>
+            <li><b>@click</b> : v-on.click</li>
+            <li><b>#xy</b> : v-slot:"xy"</li>
+          </ul>
+
         </li>
       </ul>
     </div>
-    <div id="bikeleasing"><svg viewBox="-108 170 350 400">
-      <path
-          style="stroke-width:1.1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:.1;fill:transparent;stroke: transparent"
-              d="M 0,270 c 0, -64, 123 -125, -9 12"
-          id="path14" />
-      <text>
-        <textPath xlink:href="#path14" fill="teal">Bikeleasing </textPath> </text>
-    </svg></div>
+    <div id="bikeleasing">
+      <svg viewBox="-108 170 350 400">
+        <path
+            id="path14"
+            d="M 0,270 c 0, -64, 123 -125, -9 12"
+            style="stroke-width:1.1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:.1;fill:transparent;stroke: transparent"/>
+        <text>
+          <textPath fill="teal" xlink:href="#path14">Bikeleasing</textPath>
+        </text>
+      </svg>
+    </div>
 
   </div>
 
@@ -39,17 +83,24 @@
 
 <script>
 import TheHeader from './components/TheHeader.vue';
+import BadgeList from './components/BadgeList.vue';
+import UserInfo from './components/UserInfo.vue';
+
 export default {
-  components: {"the-header" : TheHeader},
+  components: {
+    "the-header": TheHeader,
+    'badge-list': BadgeList,
+    'user-info': UserInfo,
+  },
   data() {
     return {
       activeUser: [
-          {
-            id: 1,
-        name: 'Maximilian Schwarzmüller',
-        description: 'Site owner and admin',
-        role: ['admin', "author"]
-      },
+        {
+          id: 1,
+          name: 'Maximilian Schwarzmüller',
+          description: 'Site owner and admin',
+          role: ['admin', "author"]
+        },
         {
           id: 2,
           name: 'Antonio Masotti',
@@ -76,13 +127,17 @@ body {
   margin: auto;
 }
 
+@media only screen and (max-width: 768px) {
+  .container-fluid {
+    width: 100vw;
+  }
+}
+
 .commit {
   font-size: 20px;
   font-weight: bolder;
-
-
   text-decoration: darkturquoise solid underline;
-  text-decoration-skip: ink;
+
 }
 
 .container-fluid h2 {
@@ -91,6 +146,7 @@ body {
   border-radius: 5px;
   color: antiquewhite;
   text-align: center;
+
 }
 
 .notes {
