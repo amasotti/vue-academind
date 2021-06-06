@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Reactivity in Action</h1>
+    </header>
+    <section id="assignment">
+      <button @click="addFive">Add 5</button>
+      <button @click="addOne">Add 1</button>
+      <button @click="Minus2">Subtract 2</button>
+      <!-- 1) Connect the buttons and calculate a value (a number) -->
+      <!-- Show "Not there yet" until you reach a result of exactly 37 -->
+      <!-- Show "Too much!" if the result is greater than 37 -->
+      <p>Result: {{check37 }}</p>
+      <!-- 2) Watch for changes in "result" and reset the value to 0 after 5 seconds -->
+      <p>Debug : {{number}}</p>
+    </section>
+    <div id="Notes">
+      <h2>Recap:</h2>
+      <ul>
+        <li>
+          <b class="fancyBox">Methods:</b> obligatory with listeners but can be used for any purpose (data and event
+          bindings). Methods are the most basic feature in Vue. They're executed every render-cycle. You should use them
+          if you really want you're props to be re-evaluated at each re-rendering.
+        </li>
+        <li>
+          <b class="fancyBox">Computed:</b> Can be used with data bindings but not with events or methods. The props are
+          re-evaluated only if one of variables inside the <em>computed</em> methods changes. This is great if some data
+          depend on other data.
+        </li>
+        <li>
+          <b class="fancyBox">Watch:</b> These cannot be invoked directly in the HTML (contrary to methods and computed)
+          but are constantly listening in the backround to data carrying the same name. They're useful for side-effects
+          involving just one variable. Typical use cases are
+          <em>do something if the counter becomes negative or bigger than X</em> . Watchers react to some changed data,
+          they're not recommended if you need to watch to many data at the same time. In that case use
+          <code>computed</code>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

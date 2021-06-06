@@ -1,0 +1,11 @@
+# Einstellungen
+.idea/
+*.zip
+.vscode/
+
+.env
+# big files
+*.mp4
+
+**/node_modules
+**/node_modules/

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Vue Course Goals</h1>
+    </header>
+
+    <h3>Notes</h3>
+    <p>The element above were rendered in different ways with the aim to illustrate how things can be done in Vue:</p>
+    <ul>
+      <li>
+        <b>Counters</b> Both simply render the Counter property of <code>data()</code>, but the first one has one
+        additional directive: <code>v-once</code> which freezes the counter to the value rendered when Vue is loaded
+      </li>
+      <li>
+        <b>Hello World</b> is rendered through the <code>v-hmtl</code> directive of Vue. It's also a variable in Data
+        but contains HTML code. Withouth that directive Vue would automatically block HTML rendering and sanitize the
+        code to prevent XSS-Scripting
+      </li>
+      <li><b>Master Vue js</b> is a single String variable in <code>data</code></li>
+      <li><b>The successive 3 points</b> are elements of an array rendered with a <code>v-for</code> directive</li>
+      <li>
+        <b>Goal for more/less</b> is rendered through a method declared inside the <code>methods</code> in the Vue app
+      </li>
+      <li>
+        <b>External func</b> is declared outside the main Vuejs app but rendered through a method invoking it inside the
+        app
+      </li>
+    </ul>
+
+    <section id="user-goal">
+      <h2>My Course Goal</h2>
+      <!-- The next line will look in the data object of vue
+      and return the called variable -->
+      <p v-once>Initial Counter: {{counter}}</p>
+      <p>Counter: {{counter}}</p>
+      <hr />
+      <button v-on:click="updateCounter">Update Counter</button>
+      <button v-on:click="decreaseCounter">Decrease Counter</button>
+      <hr />
+      <div id="listitems">
+        <div v-html="myHtml"></div>
+        <p>{{goal}}</p>
+        <p v-for="g in goals">{{g}}</p>
+        <p>{{outputGoal()}}</p>
+        <p>{{externalFun()}}</p>
+        <h2>Learn more about <a v-bind:href="myLink">VueJS</a></h2>
+      </div>
+      <label for="insGoal">New goal: </label>
+      <input name="insGoal" ref="newGoal" type="text" placeholder="Your new Goal" v-model="newGoal" />
+
+      <hr />
+      <button v-on:click="addGoal">Add</button>
+      <button v-on:click="rmGoal">Delete All</button>
+      <hr />
+      <label for="Yourname">Il tuo nome: </label>
+      <input name="Yourname" type="text" v-on:input="setName($event, 'Masotti')" />
+      <p>Ciao, il tuo Nome è : {{name}}</p>
+      <hr />
+    </section>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Vue Dynamic Styling</h1>
+      <h4>With dynamic styling</h4>
+    </header>
+    <section id="styling">
+      <div class="demo" @click="boxSelected('A')" :style="{ 'borderColor' : boxA ? 'red' : '#ccc'}"><h2>A</h2></div>
+      <div class="demo" @click="boxSelected('B')" :style="{ 'borderColor' : boxB ? 'red' : '#ccc'}"><h2>B</h2></div>
+      <div class="demo" @click="boxSelected('C')" :style="{ 'borderColor' : boxC ? 'red' : '#ccc'}"><h2>C</h2></div>
+      <hr>
+      <h2>Another method</h2>
+      <h4>With dynamic classes</h4>
+      <hr>
+      <div class="demo" :class="{activeDiv : boxA }" @click="boxSelected('A')"><h2>A</h2></div>
+      <div :class="{demo : true, activeDiv : boxB }" @click="boxSelected('B')"><h2>B</h2></div>
+      <div class="demo" :class="boxCClass" @click="boxSelected('C')"><h2>C</h2></div>
+    </section>
+
+    <div id="Notes">
+      The <span class="fancyBox">data()</span> object was used here to keep track of the divs selected.
+      <p>Binding a class or style element is different than binding other <code>HTML</code> attributes: here the syntax with short-hands:</p>
+      <p><pre>
+        &lt;div id="id" :style="{ 'borderColor' : boxA ? 'red' : '#ccc'}" &gt;&lt;/div&gt;
+      </pre></p>
+      This method presupposes however the use of dynmamic style inline, which is not typically done in modern applications. 
+      Another option is to add a class to the css with the desired styling after the event (clickling for instance) and dynamically add or remove this class with Vue.
+
+      <p>
+        <pre>
+          &lt;div :class="{demo : true, activeDiv : boxC }" @click="boxSelected('C')"&gt; 
+          &lt;/div &gt;
+        </pre>
+      </p>
+
+      The third class works similarly but uses a <code>watch</code>-property
+    </div>
+  </body>
+</html>

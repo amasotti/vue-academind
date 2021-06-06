@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Vue Course Goals</h1>
+    </header>
+    <div class="Notes">
+      <p>
+        This unit presents how is it possible to render array elements using Vuejs. The dummy text
+        <em>No goals have been added yet</em> should disappear when the user starts adding text.
+      </p>
+
+      This is done with the <code>v-if</code> directive in Vue.js
+
+      <p>The goals are added automatically through a <code>v-for</code> directive</p>
+      An alternative to <code>v-if v-else</code> is <code>v-show</code> which is not bound to a neighbour
+      <code>v-else</code>. It only shows if the statement is true. Another <strong>important</strong> difference is that
+      <code>v-show</code> doesn't detach the element rom the dom. It simply adds a css <code>display: none</code> class.
+
+      <p>
+        Notice one important thing: Wenn items are added or removed to the array, Vue just updates the target element,
+        not the whole array. This is great for performance reasons.
+      </p>
+
+      <h4>A niche scenario with a bug</h4>
+      <p>
+        Be aware of the fact that Vue tries to optimize performance. If you remove one element of the array, the list is
+        not recomputed; simply all other elements move to the next available DOM element. This means that if there were
+        some additional features in the deleted item (CSS-classes, an input field etc...) they will be now passed to the
+        element that takes its place. This is a kinda of bug in Vue, that you must be aware of.
+
+          The standard workaround is to use the <code>key</code> keyword in the <code>li</code> elements.
+      </p>
+    </div>
+    <section id="user-goals">
+      <h2>My course goals</h2>
+      <label>
+        Your goal:
+        <input type="text" v-model="additionalGoal" />
+      </label>
+      <button @click="newGoal">Add Goal</button>
+      <hr />
+      <label for="remove">
+        Remove item
+        <select name="remove" id="remove">
+          <option value="null" selected>---</option>
+          <option class="removeChoice" v-for="(g,i) in goals" @click="removeGoal(i)" :key="i">{{i}}</option>
+        </select>
+      </label>
+      <div v-if="deletedGoals.length !== 0">
+        <label>
+          Restore Items:
+          <select name="restore" id="restore">
+            <option value="null" selected>---</option>
+            <option v-for="(g,i) in deletedGoals" @click="restoreGoal(i)" :key="i">{{g}}</option>
+          </select>
+        </label>
+      </div>
+      <hr />
+      <p v-if="goals.length < 1 ">No goals have been added yet - please start adding some!</p>
+      <ul v-else>
+        <li v-for="[ind, ziel] in goals.entries()" :key="ind">{{ind}}) {{ziel}}</li>
+      </ul>
+      <hr />
+      <h3>Another option</h3>
+      <p>Another example with <code>V-FOR</code> without using data properties, all in HTML.</p>
+      <ul>
+        <li v-for="n in 5">{{n}}</li>
+      </ul>
+    </section>
+  </body>
+</html>

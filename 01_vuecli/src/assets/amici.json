@@ -1,0 +1,24 @@
+[
+    {
+        "id": 1,
+        "name" : "Antonio",
+        "role": "Web Manager",
+        "phone": "+49 111222333",
+        "isFavorite" : true
+    },
+    {
+        "id": 2,
+        "name" : "Paolo",
+        "role": "Marketing counselor",
+        "phone": "+49 111222333584",
+        "isFavorite" : true
+    },
+    {
+        "id": 3,
+        "name" : "Axel",
+        "role": "Big boss",
+        "phone": "+49 888 9999 000",
+        "city" : "Hannover",
+        "isFavorite": false
+    }
+]

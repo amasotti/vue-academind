@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>FriendList</h1>
+    </header>
+    <section id="app">
+      <ul>
+        <li>
+          <!-- OUR NEW FRIENDS --- THE COMPONENTS-->
+        <friend-item></friend-item>
+        <friend-item2></friend-item2>
+      </ul>
+      <div class="Notes">
+        We have displayed here some names from an array. One way to do this is to populate an array, let's say "data" and grasp the data using a for-loop.
+        This is fine but we would encounter a problem when trying to activate buttons or specific functionalities for just one of the items (like the <code>show-details</code>
+        button here ).
+
+        The much more vue-like way to achieve this is through <b>Components</b> : reusable pieces of code, actually mini Vue-app depending on the main app.
+      </div>
+    </section>
+  </body>
+</html>

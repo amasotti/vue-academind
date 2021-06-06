@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Vue Events</h1>
+    </header>
+    <section id="events">
+      <h2>Events in Action</h2>
+      <button v-on:click="add(10)">Add 10</button>
+      <button v-on:click="reduce(5)">Subtract 5</button>
+      <button v-on:click="resetCounter">Reset</button>
+      <p id="result">Result: {{ counter }}</p>
+      <label for="name1">Name (bind + method): </label>
+      <input name="name1" type="text" v-bind:value="name" v-on:keydown.enter="setName($event)" /><br />
+      <label for="name2">Name (v-model): </label>
+      <input name="name2" type="text" v-model="name" /><br /><br />
+      <label for="sexM">Male: </label>
+      <input type="checkbox" name="sexM" v-model="sexM" value="M" /><br />
+      <label for="sexF">Female: </label>
+      <input type="checkbox" name="sexF" v-model="sexF" value="F" /><br />
+      <label for="sexD">Diverse: </label>
+      <input type="checkbox" name="sexD" value="D" /><br />
+      <button v-on:click="resetName">Reset Input</button>
+      <!-- 
+      <p>{{ outputFullName() }}</p>
+       -->
+      <p>{{ titledName }}</p>
+    </section>
+    <div id="Notes">
+      <h2>Notes:</h2>
+      <p>
+        This mini app makes even clearer that <code>v-model</code> is just a shortcut for <code>v-bind</code> and
+        <code>v-on:input</code>. It interpolates the value stored in the variable as value of the HTML-Object and at the
+        same time listens for changes of this object
+      </p>
+      <p>Look how the input forms above look like under the hood:</p>
+      <pre>
+      &lt;label&gt; for="name1">Name (bind + method): &lt;/label&gt;
+      &lt;input&gt; name="name1" type="text" v-bind:value="name" v-on:input="setName($event)" /&gt;
+
+      &lt;label&gt; for="name2">Name (v-model): &lt;/label&gt;
+      &lt;input&gt; name="name2" type="text" v-model="name" /&gt;
+      
+      &lt;p&gt; Your Name: {{ name }}&lt;/p&gt;
+    </pre
+      >
+      <p>
+        This concept is called <span class="fancyBox">two way binding</span> since it both binds and updates a variable.
+      </p>
+      <h3>outputFullName</h3>
+      <p>
+        The name in the lowest box was originally rendered through a method called
+        <code>outputFullName()</code>. This takes the value of Name and pastes together a predefined lastName. In
+        reality this is useful to check for titles like <em>Herr</em> or <em>Frau</em> if a gender is set. The problem
+        is that since this method is listening with interpolation, it will be invoked each time a method is invoked on
+        the page even though the method doesn't include the variables being modified. Try just using a console log
+        inside the method and playing with the counter. You won't see any changes with <code>name</code> but the method
+        still runs. This is unoptimal for performance reasons. Hence we need another solution:
+      </p>
+      <h4>Solutions</h4>
+      <p>There are a couple of workaround to improve performance:</p>
+      <ul>
+        <li>
+          Declare the value you want (if this is fixed) directly in the double curly braces used for interpolation.
+        </li>
+        <li>
+          Use <span class="fancyBox">Computed properties</span> which is what we've done here and one core built-in
+          features of Vue next to <code>data()</code> and <code>methods()</code>
+          This functions in exactly the same way as methods work but are called only when the target variable is called.
+          The only difference in coding is that we don't call the method with round parenthesis, we use this as a
+          property. Vuejs will call the method and compute the value if the target vars change.
+        </li>
+      </ul>
+      <h3>Watchers</h3>
+      Besides <span class="fancyBox">Computed</span> and <span class="fancyBox">Methods</span> we also have Watchers in
+      Vue. Watchers have the same name of properties in data and are automatically executed when something changes in
+      the target property.
+    </div>
+  </body>
+</html>
