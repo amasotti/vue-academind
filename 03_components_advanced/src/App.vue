@@ -17,19 +17,24 @@
     <div class="btn-container">
     <button class="btn btn-primary" @click="toggleGoals">{{showGoals ? 'Hide' : 'Show'}} Goals</button>
     </div>
+    <div class="btn-container">
+      <button class="btn btn-primary" @click="toggleNotes">{{showNotes ? 'Hide' : 'Show'}} Notes</button>
+    </div>
+
     <base-card v-if="showGoals">
       <hr>
-      <user-goal>
+      <component :is="activeComponent">
         <h2>A goal:</h2>
         <template #goalItem="item">
           <h3>{{ item['goal'] }}</h3>
         </template>
-      </user-goal>
+
+      </component>
       <hr>
     </base-card>
 
   </div>
-  <div class="container-fluid">
+  <div class="container-fluid" v-if="showNotes">
     <h2>Notes</h2>
     <div class="notes">
       <ul>
@@ -78,6 +83,7 @@
 
         </li>
       </ul>
+      <p>Finally I've also tested a separated feature: <code>dynamic components</code> which allow to dynamically toggle (or render or modify) components using the bound <samp>:is</samp> directive</p>
     </div>
     <div id="bikeleasing">
       <svg viewBox="-108 170 350 400">
@@ -111,6 +117,8 @@ export default {
   data() {
     return {
       showGoals : false,
+      showNotes : true,
+      activeComponent : null,
       activeUser: [
         {
           id: 1,
@@ -129,7 +137,12 @@ export default {
   },
   methods: {
     toggleGoals() {
+      //this.showNotes = !this.showNotes;
       this.showGoals = !this.showGoals;
+      this.activeComponent='user-goal';
+    },
+    toggleNotes() {
+      this.showNotes = !this.showNotes;
     },
   }
 };
