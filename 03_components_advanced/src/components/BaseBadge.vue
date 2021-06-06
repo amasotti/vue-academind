@@ -10,6 +10,8 @@ export default {
       return {
         'badge--admin': this.type === 'admin',
         'badge--author': this.type === 'author',
+        'badge--dev': this.type === 'dev',
+        'badge--creator': this.type === 'creator',
       };
     },
   },
@@ -32,6 +34,14 @@ export default {
 
 .badge--author {
   background-color: #1256e8;
+  color: white;
+}
+.badge--dev {
+  background-color: #7b0ab8;
+  color: white;
+}
+.badge--creator {
+  background-color: #b80a1e;
   color: white;
 }
 </style>

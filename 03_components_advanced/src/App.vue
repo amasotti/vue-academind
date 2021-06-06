@@ -3,9 +3,12 @@
     <the-header></the-header>
     <badge-list></badge-list>
     <user-info
-      :full-name="activeUser.name"
-      :info-text="activeUser.description"
-      :role="activeUser.role"
+        v-for="user in activeUser"
+        :key="user.id"
+        :id="user.id"
+      :full-name="user.name"
+      :info-text="user.description"
+      :roles="user.role"
     ></user-info>
   </div>
   <div class="container-fluid">
@@ -40,11 +43,20 @@ export default {
   components: {"the-header" : TheHeader},
   data() {
     return {
-      activeUser: {
+      activeUser: [
+          {
+            id: 1,
         name: 'Maximilian Schwarzmüller',
         description: 'Site owner and admin',
-        role: 'admin',
+        role: ['admin', "author"]
       },
+        {
+          id: 2,
+          name: 'Antonio Masotti',
+          description: 'Student and creator',
+          role: ['creator', 'dev', "author"]
+        }
+      ],
     };
   },
 };

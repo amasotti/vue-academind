@@ -2,7 +2,7 @@
   <section>
     <div>
       <h3>{{ fullName }}</h3>
-      <base-badge :type="role" :caption="role.toUpperCase()"></base-badge>
+      <base-badge v-for="role in roles" :type="role" :caption="role.toUpperCase()" :key="role.id"></base-badge>
     </div>
     <p>{{ infoText }}</p>
   </section>
@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  props: ['fullName', 'infoText', 'role'],
+  props: ['fullName', 'infoText', 'roles', 'id'],
 };
 </script>
 

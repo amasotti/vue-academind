@@ -8,6 +8,12 @@
       <li>
         <base-badge type="author" caption="AUTHOR"></base-badge>
       </li>
+      <li>
+        <base-badge type="dev" caption="DEVELOPER"></base-badge>
+      </li>
+      <li>
+        <base-badge type="creator" caption="CREATOR"></base-badge>
+      </li>
     </ul>
   </section>
 </template>
