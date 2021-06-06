@@ -14,16 +14,20 @@
           :roles="user.role"
       ></user-info>
     </base-card>
-    <hr>
-    <base-card>
+    <div class="btn-container">
+    <button class="btn btn-primary" @click="toggleGoals">{{showGoals ? 'Hide' : 'Show'}} Goals</button>
+    </div>
+    <base-card v-if="showGoals">
+      <hr>
       <user-goal>
         <h2>A goal:</h2>
         <template #goalItem="item">
-          <h3>{{ item.goal }}</h3>
+          <h3>{{ item['goal'] }}</h3>
         </template>
       </user-goal>
+      <hr>
     </base-card>
-    <hr>
+
   </div>
   <div class="container-fluid">
     <h2>Notes</h2>
@@ -106,6 +110,7 @@ export default {
   },
   data() {
     return {
+      showGoals : false,
       activeUser: [
         {
           id: 1,
@@ -122,6 +127,11 @@ export default {
       ],
     };
   },
+  methods: {
+    toggleGoals() {
+      this.showGoals = !this.showGoals;
+    },
+  }
 };
 </script>
 
@@ -174,5 +184,17 @@ body {
   font-size: 16px;
   width: 70%;
   position: absolute;
+}
+
+.btn-container {
+  margin: auto;
+  text-align: center;
+  padding-block-end: 20px;
+}
+
+.btn-container button {
+  border-radius: 4px;
+  box-shadow: 3px 3px 4px 1px rgba(86, 135, 241, 0.7);
+  z-index: 3;
 }
 </style>

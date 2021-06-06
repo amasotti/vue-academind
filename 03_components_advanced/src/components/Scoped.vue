@@ -2,6 +2,7 @@
   <ul>
     <li v-for="goal in goals" :key="goal">
       <slot name="goalItem" :goal="goal"></slot>
+      <p data-type="description">Some text</p>
     </li>
   </ul>
 </template>
@@ -18,3 +19,10 @@ export default {
 </script>
 
 
+<style>
+p[data-type="description"] {
+  color: #0ea16d;
+  font-style: oblique;
+  font-family: Cantarell sans-serif;
+}
+</style>
