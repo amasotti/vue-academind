@@ -15,6 +15,7 @@
       />
     </ul>
   </div>
+  <footer style="width:100vw; height:200px;"></footer>
   </div>
 </template>
 

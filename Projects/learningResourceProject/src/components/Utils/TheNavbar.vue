@@ -4,6 +4,8 @@
                     <a href="/home">Homepage</a>
                     <a href="/resources">Resources</a>
                 </div>
+
+                <div id="dummy-header">USEFUL RESOURCES</div>
     </div>
 </template>
 
@@ -21,8 +23,8 @@ export default {
 .navbar {
     position: relative;
     top: -10px;
-    margin: 0;
-    margin-left: -8px;
+    margin: 0 -8px;
+    padding-bottom: 20px;
     height: 60px;
     width: 100vw;
     background: #34495e;
@@ -40,6 +42,13 @@ export default {
 a {
     text-decoration: none;
     color: white;
+}
+
+#dummy-header {
+    justify-self: center;
+    text-align: center;
+    color: #ffff;
+    font-weight: bolder;
 }
 
 </style>

@@ -14,7 +14,7 @@
   </div>
   <div v-if="!showCard" class="reset-div">
       <p><em>{{title}} was hidden</em></p>
-    <button class="reset-btn" @click=reset>Ripristina</button>
+    <button class="reset-btn" @click=reset>Show it again</button>
   </div>
   </div>
 </template>
