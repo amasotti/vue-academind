@@ -3,33 +3,33 @@
   <navbar></navbar>
   <div style="height: 20px;"></div>
   <h1>Welcome to the learning resource project</h1>
-  <div class="row">
-    <ul class="col s12 m12">
-      <learning-resources
-      class='card blue-grey lighten-2'
-        v-for="resource in storedResources"
-        :key="resource.id"
-        :title="resource.title"
-        :description="resource.description"
-        :link="resource.url"
-      />
-    </ul>
+
+  <div id="btnDiv" @click="toggleResource()">
+  <button class="btn" type="button">{{btnLabel}}</button>  
   </div>
+  
+
+  <learning-resources v-if="showResource" :storedResources="storedResources" />
+  <add-resource v-if="!showResource"/>
+
   <footer style="width:100vw; height:200px;"></footer>
   </div>
 </template>
 
 <script>
-import LearningResources from "./components/Resources/LearningResources.vue";
+import AddResource from './components/AddResource.vue';
+import LearningResources from './components/Resources/LearningResources.vue';
 import Navbar from "./components/Utils/TheNavbar.vue"
 
 export default {
   components: {
+    Navbar,
     LearningResources,
-    Navbar
+    AddResource
   },
   data() {
     return {
+      showResource : false,
       storedResources: [
         {
           id: "official-guide",
@@ -57,8 +57,30 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    btnLabel() {
+      if (this.showResource) return 'Add Resource';
+      return 'Show Resource';
+    }
+  },
+  provide() {
+    return {
+      resources: this.storedResources, 
+      addResource: this.addResource
+    }
+  },
+  methods : {
+    toggleResource() {
+      console.log("he he clicked")
+      this.showResource = !this.showResource;
+    }, 
+    addResource(newResource) {
+      this.storedResources.unshift(newResource);
+      console.warn("Added new Resource");
+    } 
   }
-};
+}
 </script>
 
 
@@ -70,19 +92,32 @@ export default {
 }
 
 
-.card {
-  background-color: #42b9834f;
-    max-width: 50vw;
-    margin: 20px auto;
-    border-radius: 7px;
-    box-shadow: 0 -3px 3px 2px gray;
-    padding-bottom: .7em;
-
-}
-
 h1 {
   text-align: center;
   color: #4fc08d;
+}
+
+.btn-group {
+  justify-content: space-around;
+}
+
+#btnDiv {
+  display: flex;
+  align-self: center;
+  align-content: center;
+  justify-content: center;
+}
+
+button {
+  text-align: center;
+  background : #4fc08d;
+  padding: 1em 2em;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  box-shadow: 3px 0 3px 2px silver;
 }
 
 </style>
