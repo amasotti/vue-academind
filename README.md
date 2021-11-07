@@ -1,19 +1,13 @@
 # Academind Vue3
 
-This repo contains the code for each chapter of the Academind course on Vuejs v. 3
+This repo contains my coding-along for each chapter of the Academind course on Vuejs v. 3.
+This repo is neither a complete resource-repo for the academind course nor substitutes the course. It's just me having fun with Vuejs.
 
 
 ## What's missing:
 
-_The videos (too big to be uploaded on github)_
-
-
-## Structure
-
-
-- __course resources__: the code snippet from each chapter + slides (locally also the videos)
-- __Other folders:__ my coding along the course
-
+* _The videos (too big to be uploaded on github)_
+* _Many parts that I felt too boring to code with_
 
 
 
