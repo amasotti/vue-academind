@@ -40,17 +40,28 @@ export default {
     },
     methods: {
         saveNewResource() {
-            const newResource = {
-                id: this.name + Date.now(),
-                title: this.name,
-                description: this.desc,
-                url: this.link,
-        };
-            this.addResource(newResource);
-            console.log("Res added", Object.assign({}, this.resources));
-            this.name = '';
-            this.desc = ''; 
-            this.link = '';
+            const nameCheck = this.checkResourceIsNotEmpty(this.name);
+            const titleCheck = this.checkResourceIsNotEmpty(this.desc);
+            const linkCheck = this.checkResourceIsNotEmpty(this.link);
+
+            if (nameCheck && titleCheck && linkCheck) {
+                const newResource = {
+                    id: this.name + Date.now(),
+                    title: this.name,
+                    description: this.desc,
+                    url: this.link,
+                };
+                this.addResource(newResource);
+                console.log("Res added", Object.assign({}, this.resources));
+                this.name = '';
+                this.desc = ''; 
+                this.link = '';
+            } else {
+                this.showDialog = true;
+            }
+            },
+        checkResourceIsNotEmpty (input) {
+            return !input.trim() === ''
         }
     },
 }
