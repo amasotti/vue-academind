@@ -2,7 +2,23 @@
     <div>
         <hr>
         <h2>Add new Resource</h2>
+        <base-dialog v-if=showDialog @closeDialog="closeDialog">
 
+        <template v-slot:header>
+            <h2>Something is missing</h2>
+        </template>
+
+
+        <template v-slot:dialogBody>
+            Hey guys, we need all three fields to be filled:
+
+            <ul>
+                <li><samp>title</samp>: Provide a title for the learning resource</li>
+                <li><samp>description</samp>: Provide a short summary for the learning resource</li>
+                <li><samp>url</samp>: Provide a url to visit the resource</li>
+            </ul>
+        </template>
+        </base-dialog>
     <form class="form-group">
         <div id="resName">
             <label for="res-name">Resource Name</label>
@@ -27,44 +43,51 @@
 
 
 
-<script>
+<script lang="js">
+import BaseDialog from './Utils/BaseDialog.vue';
 export default {
-    name: 'addResource',
-    inject: ['resources', 'addResource'],
-    data() {
-        return {
-            name: '',
-            desc: '',
-            link: ''
-        }
-    },
-    methods: {
-        saveNewResource() {
-            const nameCheck = this.checkResourceIsNotEmpty(this.name);
-            const titleCheck = this.checkResourceIsNotEmpty(this.desc);
-            const linkCheck = this.checkResourceIsNotEmpty(this.link);
+  components: { BaseDialog },
+  name: 'addResource',
+  inject: ['resources', 'addResource'],
+  data() {
+    return {
+      name: '',
+      desc: '',
+      link: '',
+      showDialog: false,
+    };
+  },
+  methods: {
+    saveNewResource() {
+      const nameCheck = this.checkResourceIsNotEmpty(this.name);
+      const titleCheck = this.checkResourceIsNotEmpty(this.desc);
+      const linkCheck = this.checkResourceIsNotEmpty(this.link);
 
-            if (nameCheck && titleCheck && linkCheck) {
-                const newResource = {
-                    id: this.name + Date.now(),
-                    title: this.name,
-                    description: this.desc,
-                    url: this.link,
-                };
-                this.addResource(newResource);
-                console.log("Res added", Object.assign({}, this.resources));
-                this.name = '';
-                this.desc = ''; 
-                this.link = '';
-            } else {
-                this.showDialog = true;
-            }
-            },
-        checkResourceIsNotEmpty (input) {
-            return !input.trim() === ''
-        }
+      if (nameCheck && titleCheck && linkCheck) {
+        const newResource = {
+          id: this.name + Date.now(),
+          title: this.name,
+          description: this.desc,
+          url: this.link,
+        };
+        this.addResource(newResource);
+        console.log('Res added', Object.assign({}, this.resources));
+        this.name = '';
+        this.desc = '';
+        this.link = '';
+      } else {
+        this.showDialog = true;
+      }
     },
-}
+    checkResourceIsNotEmpty(input) {
+      const check = !(input.trim() === '');
+      return check;
+    },
+    closeDialog() {
+      this.showDialog = false;
+    },
+  },
+};
 </script>
 
 <style lang="css">
