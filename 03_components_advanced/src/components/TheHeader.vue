@@ -15,7 +15,7 @@
   }
 
   header h1 {
-    color: white;
+    color: rgb(67, 197, 40);
     margin: 0;
   }
 </style>
